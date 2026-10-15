@@ -51,8 +51,18 @@ fun MediQTheme(
         SideEffect {
             val window = (view.context as Activity).window
 
+            /*
+             * The app chrome behind the system bars is light: Scaffold's container
+             * (MediQBackground) sits above the status bar and the bottom bar is
+             * white. Light bars therefore need dark icons, or they vanish into the
+             * background.
+             *
+             * If a screen ever draws a dark surface under the status bar, it must
+             * flip this for as long as it is visible.
+             */
             WindowCompat.getInsetsController(window, view).apply {
-                isAppearanceLightStatusBars = false
+                isAppearanceLightStatusBars = true
+                isAppearanceLightNavigationBars = true
             }
         }
     }
