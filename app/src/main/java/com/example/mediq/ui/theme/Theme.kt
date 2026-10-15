@@ -60,6 +60,7 @@ fun MediQTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
+        shapes = MediQShapes,
         content = content
     )
 }
