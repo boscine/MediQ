@@ -76,6 +76,9 @@ object MediQSize {
     /** 40dp — visual size of an icon button or avatar. Pad up to [minTouchTarget]. */
     val control = 40.dp
 
+    /** 48dp — initials avatar in a list row. */
+    val avatar = 48.dp
+
     /** 18dp — standard inline icon. */
     val icon = 18.dp
 
