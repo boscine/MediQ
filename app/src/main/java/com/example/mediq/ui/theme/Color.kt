@@ -80,6 +80,9 @@ val MediQError = Color(0xFFB42318)
 /** Error container for banners and failed rows. */
 val MediQErrorContainer = Color(0xFFFFF7F6)
 
+/** Tinted error chip on a white card; stronger than [MediQErrorContainer] so a bad status stays legible. */
+val MediQErrorChip = Color(0xFFFFE9E7)
+
 /** Error outline and separator. */
 val MediQErrorBorder = Color(0xFFF2B8B5)
 

@@ -91,6 +91,9 @@ object MediQSize {
     /** 160dp — minimum height of a multi-line text field. Grows with the font. */
     val multilineField = 160.dp
 
+    /** 92dp — clinic map placeholder on the appointment detail screen. */
+    val mapPreview = 92.dp
+
     /** 2dp — avatar and badge border width. */
     val hairline = 1.dp
 }
