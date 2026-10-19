@@ -28,13 +28,16 @@ import com.example.mediq.ui.theme.MediQSpacing
  * [MediQSize.iconLarge] icon, so it stays reachable while the drawn icon stays
  * small. Everything on the green uses [MediQOnBrand] — never a second green.
  *
+ * [onBack] is nullable: a terminal screen such as a booking result has no back
+ * action and drops the control rather than showing a dead one.
+ *
  * The trailing [actions] slot lets a screen add its own controls without this
  * header growing a new parameter it does not need yet.
  */
 @Composable
 fun MediQBackHeader(
     title: String,
-    onBack: () -> Unit,
+    onBack: (() -> Unit)?,
     modifier: Modifier = Modifier,
     actions: @Composable RowScope.() -> Unit = {}
 ) {
@@ -48,16 +51,18 @@ fun MediQBackHeader(
             ),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(
-            onClick = onBack,
-            modifier = Modifier.size(MediQSize.minTouchTarget)
-        ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = "Back",
-                tint = MediQOnBrand,
-                modifier = Modifier.size(MediQSize.iconLarge)
-            )
+        if (onBack != null) {
+            IconButton(
+                onClick = onBack,
+                modifier = Modifier.size(MediQSize.minTouchTarget)
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = MediQOnBrand,
+                    modifier = Modifier.size(MediQSize.iconLarge)
+                )
+            }
         }
 
         Text(

@@ -5,6 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.mediq.ui.screens.*
+import com.example.mediq.ui.screens.booking.BookingFlowScreen
+import com.example.mediq.ui.screens.booking.BookingSuccessScreen
 import com.example.mediq.ui.screens.doctordetails.DoctorDetailsScreen
 import com.example.mediq.ui.screens.doctors.DoctorsScreen
 import com.example.mediq.ui.screens.home.HomeScreen

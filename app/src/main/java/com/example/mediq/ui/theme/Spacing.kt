@@ -85,6 +85,12 @@ object MediQSize {
     /** 20dp — icon inside a primary button. */
     val iconLarge = 20.dp
 
+    /** 64dp — the mark at the centre of a success or empty state. */
+    val hero = 64.dp
+
+    /** 160dp — minimum height of a multi-line text field. Grows with the font. */
+    val multilineField = 160.dp
+
     /** 2dp — avatar and badge border width. */
     val hairline = 1.dp
 }
