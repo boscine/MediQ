@@ -98,6 +98,14 @@ val MediQSuccessContainer = Color(0xFFEAF6ED)
 /** Neutral status foreground: completed, cancelled, inactive. */
 val MediQNeutral = Color(0xFFA0A8B5)
 
+// Availability slots
+
+/** Outline of an available, unselected time slot in the slot grid. */
+val MediQSlotAvailableBorder = Color(0xFFB5D9BF)
+
+/** Container of a primary button that cannot be pressed yet. */
+val MediQDisabledContainer = Color(0xFF8CBA99)
+
 // ── Components ──────────────────────────────────────────────────────────────
 
 /** Initials-avatar tile, brand tinted. */
