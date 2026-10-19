@@ -104,7 +104,7 @@ internal fun ProfileDetailRow(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(text = label, style = MaterialTheme.typography.bodySmall, color = MediQTextSecondary)
-        Text(text = value, style = MaterialTheme.typography.bodySmall.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.Medium), color = MediQTextPrimary)
+        Text(text = value, style = MaterialTheme.typography.labelMedium, color = MediQTextPrimary)
     }
 }
 

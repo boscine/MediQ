@@ -5,7 +5,6 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.NotificationsActive
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 
 /*
@@ -79,8 +78,8 @@ val NotificationIcons = mapOf(
     ),
     NotificationType.REMINDER to NotificationIcon(
         icon = Icons.Filled.NotificationsActive,
-        container = Color(0xFFFFF6E6),
-        tint = Color(0xFFF59E0B)
+        container = com.example.mediq.ui.theme.MediQReminderIconContainer,
+        tint = com.example.mediq.ui.theme.MediQReminderIconTint
     ),
     NotificationType.RESCHEDULED to NotificationIcon(
         icon = Icons.Filled.Check,

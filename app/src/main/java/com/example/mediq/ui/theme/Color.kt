@@ -92,6 +92,12 @@ val MediQWarning = Color(0xFFB76E00)
 /** Warning container for notices. */
 val MediQWarningContainer = Color(0xFFFFF4E5)
 
+/** Reminder notification icon background (amber 50). */
+val MediQReminderIconContainer = Color(0xFFFFF6E6)
+
+/** Reminder notification icon tint (amber 600). */
+val MediQReminderIconTint = Color(0xFFF59E0B)
+
 /** Confirmed and success foreground. */
 val MediQSuccess = Color(0xFF388E3C)
 
