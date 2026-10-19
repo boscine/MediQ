@@ -94,6 +94,15 @@ object MediQSize {
     /** 92dp — clinic map placeholder on the appointment detail screen. */
     val mapPreview = 92.dp
 
+    /** 220dp — hero image band on the sign-in screen. */
+    val authHero = 220.dp
+
+    /** 96dp — MediQ logo mark on the splash and sign-in screens. */
+    val authLogo = 96.dp
+
+    /** 6dp — one bar of the registration progress track. */
+    val progressBar = 6.dp
+
     /** 2dp — avatar and badge border width. */
     val hairline = 1.dp
 }
