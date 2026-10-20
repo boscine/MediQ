@@ -7,10 +7,12 @@ import androidx.navigation.compose.composable
 import com.example.mediq.ui.screens.*
 import com.example.mediq.ui.screens.appointmentdetails.AppointmentDetailsScreen
 import com.example.mediq.ui.screens.appointments.AppointmentsScreen
+import com.example.mediq.ui.screens.auth.ForgotPasswordScreen
 import com.example.mediq.ui.screens.auth.RegisterCredentialsScreen
 import com.example.mediq.ui.screens.auth.RegisterDetailsScreen
 import com.example.mediq.ui.screens.auth.RegisterOtpScreen
 import com.example.mediq.ui.screens.auth.RegisterSuccessScreen
+import com.example.mediq.ui.screens.auth.ResetPasswordScreen
 import com.example.mediq.ui.screens.auth.SignInScreen
 import com.example.mediq.ui.screens.booking.BookingFlowScreen
 import com.example.mediq.ui.screens.booking.BookingSuccessScreen
@@ -24,13 +26,15 @@ import com.example.mediq.ui.screens.profile.ProfileScreen
 import com.example.mediq.ui.screens.secretarychat.SecretaryChatScreen
 
 @Composable
-fun MediQNavHost(navController: NavHostController) {
+fun MediQNavHost(navController: NavHostController, startDestination: String = Screen.SignIn.route) {
     NavHost(
         navController = navController,
-        startDestination = Screen.SignIn.route
+        startDestination = startDestination
     ) {
         // Auth Flow
         composable(Screen.SignIn.route) { SignInScreen(navController) }
+        composable(Screen.ForgotPassword.route) { ForgotPasswordScreen(navController) }
+        composable(Screen.ResetPassword.route) { ResetPasswordScreen(navController) }
         composable(Screen.RegisterDetails.route) { RegisterDetailsScreen(navController) }
         composable(Screen.RegisterOTP.route) { RegisterOtpScreen(navController) }
         composable(Screen.RegisterCredentials.route) { RegisterCredentialsScreen(navController) }

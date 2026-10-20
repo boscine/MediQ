@@ -22,6 +22,7 @@ import com.example.mediq.ui.theme.MediQBackground
 import com.example.mediq.ui.theme.MediQGreen
 import com.example.mediq.ui.theme.MediQOnBrand
 import com.example.mediq.ui.theme.MediQRadius
+import com.example.mediq.ui.theme.MediQSize
 import com.example.mediq.ui.theme.MediQSpacing
 import com.example.mediq.ui.theme.MediQTextPrimary
 import com.example.mediq.ui.theme.MediQTextSecondary
@@ -37,7 +38,7 @@ internal fun ChatBubble(
         horizontalAlignment = if (message.sentByPatient) Alignment.End else Alignment.Start
     ) {
         Surface(
-            modifier = Modifier.widthIn(max = 290.dp),
+            modifier = Modifier.widthIn(max = MediQSize.chatBubbleMax),
             shape = androidx.compose.foundation.shape.RoundedCornerShape(
                 topStart = MediQRadius.md,
                 topEnd = MediQRadius.md,

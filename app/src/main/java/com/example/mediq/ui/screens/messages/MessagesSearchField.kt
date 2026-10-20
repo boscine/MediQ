@@ -37,7 +37,7 @@ internal fun MessagesSearchField(
     androidx.compose.foundation.layout.Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(68.dp)
+            .height(MediQSize.headerBar)
             .background(MediQGreen)
             .padding(
                 horizontal = MediQSpacing.gutter,

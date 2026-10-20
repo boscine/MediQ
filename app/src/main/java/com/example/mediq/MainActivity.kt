@@ -14,13 +14,32 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.mediq.ui.components.MediQBottomBar
 import com.example.mediq.ui.components.mainTabForRoute
+import com.example.mediq.data.api.RetrofitClient
 import com.example.mediq.ui.navigation.MediQNavHost
+import com.example.mediq.ui.navigation.Screen
+import com.example.mediq.ui.session.MediQSession
 import com.example.mediq.ui.theme.MediQTheme
 
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Restore the signed-in account (if any) before drawing the first
+        // screen, so closing and reopening the app keeps the session.
+        MediQSession.init(applicationContext)
+        RetrofitClient.accessToken = MediQSession.accessToken
+        android.widget.Toast.makeText(
+            this,
+            if (MediQSession.user.value != null) "Restored: ${MediQSession.user.value?.username}" else "No session restored",
+            android.widget.Toast.LENGTH_LONG
+        ).show()
+
+        val startDestination = if (MediQSession.user.value != null) {
+            Screen.Home.route
+        } else {
+            Screen.SignIn.route
+        }
 
         // Every screen here has light chrome behind the system bars, so the
         // default auto-detected system bar style is correct. MediQTheme sets the
@@ -47,7 +66,7 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
-                        MediQNavHost(navController = navController)
+                        MediQNavHost(navController = navController, startDestination = startDestination)
                     }
                 }
             }

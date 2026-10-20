@@ -41,7 +41,7 @@ internal fun DoctorDetailsLoadingState() {
         verticalArrangement = Arrangement.spacedBy(MediQSpacing.md)
     ) {
         // Profile block: avatar, name, two figures.
-        SkeletonBar(widthFraction = 0.55f, height = 20.dp)
+        SkeletonBar(widthFraction = 0.55f, height = MediQSpacing.xl)
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -51,12 +51,12 @@ internal fun DoctorDetailsLoadingState() {
             SkeletonBox(modifier = Modifier.weight(1f))
         }
 
-        SkeletonBar(widthFraction = 0.9f, height = 12.dp)
-        SkeletonBar(widthFraction = 0.75f, height = 12.dp)
+        SkeletonBar(widthFraction = 0.9f, height = MediQSpacing.md)
+        SkeletonBar(widthFraction = 0.75f, height = MediQSpacing.md)
 
         Spacer(Modifier.height(MediQSpacing.xs))
 
-        SkeletonBar(widthFraction = 0.4f, height = 16.dp)
+        SkeletonBar(widthFraction = 0.4f, height = MediQSpacing.lg)
 
         // The day strip.
         Row(

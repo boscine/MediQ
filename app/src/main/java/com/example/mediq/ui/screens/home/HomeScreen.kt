@@ -11,20 +11,27 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mediq.ui.navigation.Screen
+import com.example.mediq.ui.session.MediQSession
 import com.example.mediq.ui.theme.MediQBackground
 import com.example.mediq.ui.theme.MediQGreen
+import com.example.mediq.ui.theme.MediQSize
 import com.example.mediq.ui.theme.MediQSpacing
 
 /** Height of the green band behind the header. */
-private val HeaderHeight = 132.dp
+private val HeaderHeight = MediQSize.homeHeader
 
 /** How far the next-consultation card overlaps the green band. */
-private val CardTopOffset = 90.dp
+private val CardTopOffset = MediQSize.homeCardOffset
 
 /**
  * Home.
@@ -40,10 +47,19 @@ fun HomeScreen(
     navController: NavController,
     state: HomeUiState = HomeSamples.content
 ) {
+    var notificationsRead by rememberSaveable { mutableStateOf(false) }
+    val user by MediQSession.user.collectAsState()
+    val signedInState = state.withPatient(user)
+    val resolvedState = if (signedInState is HomeUiState.Content && notificationsRead) {
+        signedInState.copy(unreadNotifications = 0)
+    } else {
+        signedInState
+    }
     HomeContent(
-        state = state,
+        state = resolvedState,
         actions = HomeActions(
             onNotificationsClick = {
+                notificationsRead = true
                 navController.navigate(Screen.Notifications.route)
             },
             onBrowseDoctors = {

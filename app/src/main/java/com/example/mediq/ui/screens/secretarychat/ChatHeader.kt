@@ -35,7 +35,7 @@ internal fun ChatHeader(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(68.dp)
+            .height(MediQSize.headerBar)
             .background(MediQGreen)
             .padding(horizontal = MediQSpacing.xs),
         verticalAlignment = Alignment.CenterVertically

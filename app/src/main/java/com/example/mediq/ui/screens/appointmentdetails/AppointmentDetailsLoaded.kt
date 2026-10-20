@@ -72,7 +72,7 @@ internal fun AppointmentDetailsLoaded(
 
         Spacer(Modifier.height(MediQSpacing.lg))
 
-        AppointmentMapPreview()
+        AppointmentMapPreview(location = booking.location)
 
         Spacer(Modifier.height(MediQSpacing.lg))
 

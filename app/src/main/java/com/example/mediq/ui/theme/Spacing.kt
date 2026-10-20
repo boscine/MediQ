@@ -100,6 +100,33 @@ object MediQSize {
     /** 96dp — MediQ logo mark on the splash and sign-in screens. */
     val authLogo = 96.dp
 
+    /** 68dp — height of a list row header (messages, profile, chat). */
+    val headerBar = 68.dp
+
+    /** 290dp — max width of a chat bubble. */
+    val chatBubbleMax = 290.dp
+
+    /** 132dp — height of the home header band. */
+    val homeHeader = 132.dp
+
+    /** 90dp — top offset of the home card stack over the header. */
+    val homeCardOffset = 90.dp
+
+    /** 34dp — size of an avatar badge in notification rows. */
+    val notificationBadge = 34.dp
+
+    /** 22dp — size of an unread/indicator icon in conversation rows. */
+    val conversationIcon = 22.dp
+
+    /** 19dp — size of a small inline icon in notification rows. */
+    val notificationIcon = 19.dp
+
+    /** 28dp — height of a skeleton text bar. */
+    val skeletonBarLg = 28.dp
+
+    /** 14dp — height of a skeleton text bar. */
+    val skeletonBarSm = 14.dp
+
     /** 6dp — one bar of the registration progress track. */
     val progressBar = 6.dp
 

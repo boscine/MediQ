@@ -1,15 +1,34 @@
+# Build outputs
+build/
+*/build/
+*.apk
+*.aab
+.gradle/
+.kotlin/
+
+# IDE
+.idea/
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+.vscode/
+
+# Secrets / local config
+.env
+.env.*
 local.properties
+*.keystore
+*.jks
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Supabase
+supabase/.temp/
+
+
+# Node
+node_modules/
+mediqweb/**/node_modules/
+mediqweb/**/dist/
+mediqweb/**/.angular/

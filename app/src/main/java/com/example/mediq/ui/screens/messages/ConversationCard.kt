@@ -106,7 +106,7 @@ internal fun ConversationCard(
             if (conversation.unreadCount > 0) {
                 Box(
                     modifier = Modifier
-                        .size(22.dp)
+                        .size(MediQSize.conversationIcon)
                         .clip(RoundedCornerShape(com.example.mediq.ui.theme.MediQRadius.pill))
                         .background(MediQGreen),
                     contentAlignment = Alignment.Center

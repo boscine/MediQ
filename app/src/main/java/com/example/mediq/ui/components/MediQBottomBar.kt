@@ -32,6 +32,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.mediq.ui.navigation.Screen
 import com.example.mediq.ui.theme.MediQBackground
+import com.example.mediq.ui.theme.MediQElevation
 import com.example.mediq.ui.theme.MediQBorder
 import com.example.mediq.ui.theme.MediQGreen
 import com.example.mediq.ui.theme.MediQSize
@@ -133,7 +134,7 @@ fun MediQBottomBar(navController: NavHostController) {
 
         NavigationBar(
             containerColor = MediQBackground,
-            tonalElevation = 0.dp
+            tonalElevation = MediQElevation.none
         ) {
 
             bottomNavItems.forEach { item ->

@@ -43,7 +43,7 @@ internal fun ProfileHeader(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(68.dp)
+            .height(MediQSize.headerBar)
             .background(com.example.mediq.ui.theme.MediQGreen)
     )
 

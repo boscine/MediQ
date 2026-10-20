@@ -12,45 +12,98 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.mediq.ui.navigation.Screen
+import com.example.mediq.ui.session.MediQSession
+import com.example.mediq.ui.session.SignedInUser
 import com.example.mediq.ui.theme.MediQBackground
 import com.example.mediq.ui.theme.MediQSize
 import com.example.mediq.ui.theme.MediQSpacing
 import com.example.mediq.ui.theme.MediQTextPrimary
 import com.example.mediq.ui.theme.MediQTextSecondary
+import com.example.mediq.ui.viewmodel.AuthUiState
+import com.example.mediq.ui.viewmodel.AuthViewModel
+import kotlinx.coroutines.launch
 
 /**
  * Sign-in.
  *
  * Job: get an existing patient in. Primary action: sign in.
  *
- * [state] defaults to the current mock source, [AuthSamples]. Replacing it with
- * a repository changes this one call site, not the layout.
+ * The account is checked against the MediQ API, so the name the rest of the
+ * app shows is the name the server has for that patient — not a fixed sample
+ * and not one guessed from the username.
  */
 @Composable
 fun SignInScreen(
     navController: NavController,
-    state: SignInState = AuthSamples.signInIdle
+    viewModel: AuthViewModel = viewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsState()
+    val signInState = uiState.toSignInState()
+    val scope = rememberCoroutineScope()
+
+    val sessionUser by MediQSession.user.collectAsState()
+    LaunchedEffect(sessionUser) {
+        if (sessionUser != null) {
+            navController.navigate(Screen.Home.route) {
+                popUpTo(Screen.SignIn.route) { inclusive = true }
+                launchSingleTop = true
+            }
+        }
+    }
+
     SignInContent(
-        state = state,
+        state = signInState,
         actions = SignInActions(
-            onSubmit = { _, _ ->
-                navController.navigate(Screen.Home.route) {
-                    popUpTo(Screen.SignIn.route) { inclusive = true }
-                    launchSingleTop = true
+            onSubmit = { username, password ->
+                scope.launch {
+                    val profile = viewModel.signIn(username, password) ?: return@launch
+
+                    /*
+                     * The account the server authenticated is the account the
+                     * rest of the app shows: its real name, not a sample and
+                     * not one guessed from the username.
+                     */
+                    MediQSession.signIn(
+                        SignedInUser(
+                            username = profile.username,
+                            fullName = profile.fullName,
+                            email = profile.email,
+                            phoneNumber = profile.mobileNumber
+                        )
+                    )
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.SignIn.route) { inclusive = true }
+                        launchSingleTop = true
+                    }
                 }
             },
-            onRegister = { navController.navigate(Screen.RegisterDetails.route) }
+            onRegister = { navController.navigate(Screen.RegisterDetails.route) },
+            onForgotPassword = { navController.navigate(Screen.ForgotPassword.route) }
         )
     )
+}
+
+/** What the sign-in screen draws, given what the server answered. */
+private fun AuthUiState.toSignInState(): SignInState = when (this) {
+    is AuthUiState.Idle -> SignInState.Idle
+    is AuthUiState.Loading -> SignInState.SigningIn
+    is AuthUiState.InvalidCredentials -> SignInState.InvalidCredentials(
+        "That username and password do not match. Check both and try again."
+    )
+    is AuthUiState.Error -> SignInState.Error(message)
+    is AuthUiState.Success -> SignInState.Idle
 }
 
 /**

@@ -23,6 +23,7 @@ import androidx.navigation.NavController
 import com.example.mediq.ui.components.MediQBackHeader
 import com.example.mediq.ui.components.MediQNotice
 import com.example.mediq.ui.navigation.Screen
+import com.example.mediq.ui.session.MediQSession
 import com.example.mediq.ui.theme.MediQBackground
 import com.example.mediq.ui.theme.MediQError
 import com.example.mediq.ui.theme.MediQErrorContainer
@@ -44,7 +45,13 @@ fun RegisterCredentialsScreen(
         state = state,
         actions = RegisterActions(
             onBack = { navController.popBackStack() },
-            onCredentialsCreate = { _, _ ->
+            onCredentialsCreate = { username, _ ->
+                /*
+                 * Create the account now that the username is known, so the
+                 * sign-in that follows can greet the patient by the name they
+                 * typed at the details step.
+                 */
+                MediQSession.completeRegistration(username)
                 navController.navigate(Screen.RegisterSuccess.route)
             }
         )

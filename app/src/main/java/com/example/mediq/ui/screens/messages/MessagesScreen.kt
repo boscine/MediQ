@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -27,10 +28,21 @@ fun MessagesScreen(
     navController: NavController,
     state: MessagesUiState = MessagesSamples.content
 ) {
+    var readIds by rememberSaveable { mutableStateOf(emptySet<String>()) }
+    val resolvedState = if (state is MessagesUiState.Content) {
+        MessagesUiState.Content(
+            conversations = state.conversations.map { conv ->
+                if (conv.id in readIds) conv.copy(unreadCount = 0) else conv
+            }
+        )
+    } else {
+        state
+    }
     MessagesContent(
-        state = state,
+        state = resolvedState,
         actions = MessagesActions(
             onOpenChat = { id ->
+                readIds = readIds + id
                 navController.navigate(Screen.MessageChat.createRoute(id))
             }
         )

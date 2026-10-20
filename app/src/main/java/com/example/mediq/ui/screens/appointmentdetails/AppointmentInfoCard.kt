@@ -1,6 +1,7 @@
 package com.example.mediq.ui.screens.appointmentdetails
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,9 +17,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import com.example.mediq.ui.screens.appointments.AppointmentBooking
 import com.example.mediq.ui.theme.MediQBackground
 import com.example.mediq.ui.theme.MediQBorder
@@ -100,9 +104,26 @@ private fun FieldDivider() {
  * than pretending to be a tappable control.
  */
 @Composable
-internal fun AppointmentMapPreview(modifier: Modifier = Modifier) {
+internal fun AppointmentMapPreview(
+    location: String = "ACE Medical Center",
+    modifier: Modifier = Modifier
+) {
+    val context = LocalContext.current
     Surface(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable {
+                val query = Uri.encode(location)
+                val intent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("geo:0,0?q=$query")
+                )
+                // Only launch if something can handle it; otherwise do nothing
+                // rather than crashing on devices without a maps app.
+                if (intent.resolveActivity(context.packageManager) != null) {
+                    context.startActivity(intent)
+                }
+            },
         shape = MaterialTheme.shapes.large,
         color = MediQLightGreen
     ) {
@@ -124,12 +145,12 @@ internal fun AppointmentMapPreview(modifier: Modifier = Modifier) {
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "ACE Medical Center",
+                    text = location,
                     style = MaterialTheme.typography.labelLarge,
                     color = MediQGreen
                 )
                 Text(
-                    text = "Map preview",
+                    text = "Tap to open in Google Maps",
                     style = MaterialTheme.typography.labelSmall,
                     color = MediQTextSecondary
                 )

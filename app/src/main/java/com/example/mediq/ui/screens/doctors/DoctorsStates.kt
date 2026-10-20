@@ -70,11 +70,11 @@ internal fun DoctorsLoadingState() {
                 elevation = CardDefaults.cardElevation(defaultElevation = MediQElevation.none)
             ) {
                 Column(modifier = Modifier.padding(MediQSpacing.lg)) {
-                    SkeletonBar(widthFraction = 0.6f, height = 16.dp)
+                    SkeletonBar(widthFraction = 0.6f, height = MediQSpacing.lg)
                     Spacer(Modifier.height(MediQSpacing.sm))
-                    SkeletonBar(widthFraction = 0.4f, height = 12.dp)
+                    SkeletonBar(widthFraction = 0.4f, height = MediQSpacing.md)
                     Spacer(Modifier.height(MediQSpacing.sm))
-                    SkeletonBar(widthFraction = 0.8f, height = 12.dp)
+                    SkeletonBar(widthFraction = 0.8f, height = MediQSpacing.md)
                 }
             }
         }

@@ -15,6 +15,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.mediq.ui.components.MediQBackHeader
 import com.example.mediq.ui.navigation.Screen
+import com.example.mediq.ui.session.MediQSession
 import com.example.mediq.ui.theme.MediQGreen
 import com.example.mediq.ui.theme.MediQOnBrand
 import com.example.mediq.ui.theme.MediQScaffoldBackground
@@ -44,8 +46,19 @@ fun EditProfileScreen(
     navController: NavController,
     state: EditProfileUiState = ProfileSamples.editIdle
 ) {
-    var fullName by rememberSaveable { mutableStateOf(MockProfile.fullName) }
-    var phoneNumber by rememberSaveable { mutableStateOf(MockProfile.phoneNumber) }
+    val user by MediQSession.user.collectAsState()
+
+    /*
+     * The form starts from the signed-in patient's own details. The sample
+     * fills in only while nobody is signed in; a detail the app does not know
+     * starts empty rather than showing somebody else's number.
+     */
+    var fullName by rememberSaveable(user?.username) {
+        mutableStateOf(user?.fullName ?: MockProfile.fullName)
+    }
+    var phoneNumber by rememberSaveable(user?.username) {
+        mutableStateOf(user?.phoneNumber ?: "")
+    }
 
     EditProfileContent(
         state = state,

@@ -56,7 +56,7 @@ internal fun NotificationCard(
         ) {
             Box(
                 modifier = Modifier
-                    .size(34.dp)
+                    .size(MediQSize.notificationBadge)
                     .clip(CircleShape)
                     .background(iconData.container),
                 contentAlignment = Alignment.Center
@@ -65,7 +65,7 @@ internal fun NotificationCard(
                     imageVector = iconData.icon,
                     contentDescription = null,
                     tint = iconData.tint,
-                    modifier = Modifier.size(19.dp)
+                    modifier = Modifier.size(MediQSize.notificationIcon)
                 )
             }
 
@@ -87,7 +87,7 @@ internal fun NotificationCard(
                         Box(
                             modifier = Modifier
                                 .padding(top = MediQSpacing.xxs)
-                                .size(6.dp)
+                                .size(MediQSize.progressBar)
                                 .clip(CircleShape)
                                 .background(MediQGreen)
                         )

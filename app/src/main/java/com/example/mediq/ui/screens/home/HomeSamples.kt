@@ -11,7 +11,7 @@ object HomeSamples {
 
     private val patient = PatientSummary(
         firstName = "Arweyne",
-        fullName = "Arweyne Zabala"
+        fullName = "Arweyne Zoe Salcedo"
     )
 
     private val specialties = listOf(

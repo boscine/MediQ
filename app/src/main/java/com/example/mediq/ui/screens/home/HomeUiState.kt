@@ -1,5 +1,8 @@
 package com.example.mediq.ui.screens.home
 
+import com.example.mediq.ui.session.DisplayName
+import com.example.mediq.ui.session.SignedInUser
+
 /*
  * Home screen state and the callbacks it raises.
  *
@@ -13,15 +16,10 @@ data class PatientSummary(
     val fullName: String
 ) {
     /**
-     * Up to two initials, e.g. "Arweyne Zabala" -> "AZ".
+     * Up to two initials, e.g. "Arweyne Zoe Salcedo" -> "AZ".
      * Derived rather than hardcoded, so the avatar follows the name.
      */
-    val initials: String = fullName
-        .split(' ')
-        .filter { it.isNotBlank() }
-        .take(2)
-        .map { it.first().uppercaseChar() }
-        .joinToString("")
+    val initials: String = DisplayName.initials(fullName)
 }
 
 /**
@@ -88,3 +86,20 @@ data class HomeActions(
     val onManageAppointment: (String) -> Unit = {},
     val onRetry: () -> Unit = {}
 )
+
+/**
+ * The state with the signed-in patient's identity in it.
+ *
+ * The sample name is kept for previews and for a screen opened before anyone
+ * signs in. Once somebody is signed in, the header shows that person.
+ */
+fun HomeUiState.withPatient(user: SignedInUser?): HomeUiState = when {
+    user == null -> this
+    this is HomeUiState.Content -> copy(
+        patient = PatientSummary(
+            firstName = DisplayName.firstName(user.fullName),
+            fullName = user.fullName
+        )
+    )
+    else -> this
+}

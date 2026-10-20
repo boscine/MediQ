@@ -25,6 +25,7 @@ import androidx.navigation.NavController
 import com.example.mediq.ui.components.MediQBackHeader
 import com.example.mediq.ui.components.MediQNotice
 import com.example.mediq.ui.navigation.Screen
+import com.example.mediq.ui.session.MediQSession
 import com.example.mediq.ui.theme.MediQBackground
 import com.example.mediq.ui.theme.MediQError
 import com.example.mediq.ui.theme.MediQErrorContainer
@@ -46,7 +47,7 @@ fun RegisterDetailsScreen(
         state = state,
         actions = RegisterActions(
             onBack = { navController.popBackStack() },
-            onDetailsContinue = { _, phoneNumber ->
+            onDetailsContinue = { fullName, phoneNumber ->
                 /*
                  * Hand the number forward through the back-stack entry so the
                  * code step can say where the code went, rather than repeating
@@ -55,6 +56,14 @@ fun RegisterDetailsScreen(
                 navController.currentBackStackEntry
                     ?.savedStateHandle
                     ?.set(OTP_PHONE_KEY, phoneNumber)
+
+                /*
+                 * The details step is the only place a full name is ever asked
+                 * for, so it is kept here for the account the credentials step
+                 * is about to create.
+                 */
+                MediQSession.beginRegistration(fullName, phoneNumber)
+
                 navController.navigate(Screen.RegisterOTP.route)
             }
         )

@@ -58,7 +58,7 @@ internal fun HomeLoadingState() {
     ) {
         Spacer(Modifier.height(MediQSpacing.xxl))
 
-        SkeletonBar(widthFraction = 0.45f, height = 20.dp)
+        SkeletonBar(widthFraction = 0.45f, height = MediQSpacing.xl)
 
         Spacer(Modifier.height(MediQSpacing.lg))
 
@@ -69,13 +69,13 @@ internal fun HomeLoadingState() {
             elevation = CardDefaults.cardElevation(defaultElevation = MediQElevation.none)
         ) {
             Column(modifier = Modifier.padding(MediQSpacing.lg)) {
-                SkeletonBar(widthFraction = 0.55f, height = 14.dp)
+                SkeletonBar(widthFraction = 0.55f, height = MediQSize.skeletonBarSm)
                 Spacer(Modifier.height(MediQSpacing.md))
-                SkeletonBar(widthFraction = 0.35f, height = 28.dp)
+                SkeletonBar(widthFraction = 0.35f, height = MediQSize.skeletonBarLg)
                 Spacer(Modifier.height(MediQSpacing.sm))
-                SkeletonBar(widthFraction = 0.7f, height = 14.dp)
+                SkeletonBar(widthFraction = 0.7f, height = MediQSize.skeletonBarSm)
                 Spacer(Modifier.height(MediQSpacing.lg))
-                SkeletonBar(widthFraction = 0.5f, height = 14.dp)
+                SkeletonBar(widthFraction = 0.5f, height = MediQSize.skeletonBarSm)
             }
         }
 

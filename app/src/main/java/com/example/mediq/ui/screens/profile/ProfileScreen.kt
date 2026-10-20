@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -16,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.mediq.ui.components.MediQBackHeader
 import com.example.mediq.ui.navigation.Screen
+import com.example.mediq.data.api.RetrofitClient
+import com.example.mediq.ui.session.MediQSession
 import com.example.mediq.ui.theme.MediQScaffoldBackground
 import com.example.mediq.ui.theme.MediQSpacing
 
@@ -33,9 +36,10 @@ fun ProfileScreen(
     state: ProfileUiState = ProfileSamples.content
 ) {
     var showSignOutDialog by remember { mutableStateOf(false) }
+    val user by MediQSession.user.collectAsState()
 
     ProfileContent(
-        state = state,
+        state = state.withProfile(user),
         actions = ProfileActions(
             onEdit = { navController.navigate(Screen.EditProfile.route) },
             onSignOut = { showSignOutDialog = true }
@@ -44,6 +48,8 @@ fun ProfileScreen(
         onDismissSignOut = { showSignOutDialog = false },
         onConfirmSignOut = {
             showSignOutDialog = false
+            MediQSession.signOut()
+            RetrofitClient.accessToken = null
             navController.navigate(Screen.SignIn.route) { popUpTo(0) }
         }
     )
